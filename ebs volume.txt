@@ -1,0 +1,17 @@
+lsblk                 #it is used to check elastic block storage details(ebs volume)
+
+df -h                 # it is used to check how much storage is used in ebs
+
+file -s /dev/xvda1    # it is used to check file type, /dev/xvda1 (device name path)
+
+In Linux 2 types of files are there 1) XFS  2)ext4
+
+
+
+######### if you want to mount secondary ebs volume to ec2 refer this ########
+
+mkfs -t ext4 /dev/xvdb    #this command is used to convert to ile type (ext4/xfs) 
+
+mount /dev/xvdb /home/ec2-user/tempmount/     #to mount secondary ebs volume to ec2 (we have to create directory like tempmount inside ec2-user)
+
+umount /dev/xvdb           # to un mount the secondary ebs volume from ec2
