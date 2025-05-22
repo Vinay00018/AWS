@@ -1,0 +1,30 @@
+########## TO work through CLI ###########
+1)install aws cli from browser
+  ->run the 2 commands in terminal /cmd  to install  (commands in documentation)
+  ->check aws --version
+
+2)to configure(to get access of account
+
+*** we need to create user in iam and also access key and secret access key
+
+C:\Users\vv238>aws configure
+AWS Access Key ID [None]: paste  access key here
+AWS Secret Access Key [None]: paste secret access key here
+Default region name [None]: ap-south-1
+Default output format [None]:
+
+3)to check how many users are logged in
+
+->    aws iam list-users
+
+4)to stop instance
+
+-> aws ec2 stop-instances --instance-ids (paste instance id) 
+
+5)to terminate instance
+
+->aws ec2 terminate-instances --instance-ids (paste instance id) 
+
+6) to create user in iam
+
+->aws iam create-user --user-name cli2
