@@ -1,0 +1,7 @@
+vpc peering (establishing connection btw vpc's)
+
+->It helps to transfer data btw private instances without exposing to internet(important data should not be exposed to internet)
+
+* if vpc in different region or in same region or different aws account we can use vpc peering 
+
+* vpc's must have different CIDR range otherwise it overlaps
