@@ -1,0 +1,12 @@
+########## connect to private ec2 using ssm manager ########
+
+1)
+-> go to iam 
+-> select role for ec2 
+-> give ssmfullaccess permission
+
+2)
+->come to instance click action 
+->modify iam role
+->add iam 
+->connect
