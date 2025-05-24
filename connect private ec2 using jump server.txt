@@ -1,0 +1,35 @@
+###########  connect to private ec2 through jump server #########
+
+1)change the directory to downloads folder
+
+-> cd Downloads
+
+2)use command to connect through ssh(terminal)
+
+-> ssh -i p1.pem ec2-user@(paste public ip of jump srever) 
+
+3) now we are in jump server
+4)next we can connect to private ec2 
+
+-> touch example.pem  (create .pem file and copy the .pem file of private ec2)
+
+->ssh -i example.pem ec2-user@(paste private ip of private ec2)
+
+->chmod 400 example.pem  (to change access to file)
+
+
+
+|note| 
+
+-> touch example.pem  (create .pem file and copy the .pem file of private ec2)
+
+(this is not the best practice to coppy the file instead use command)
+
+-> create any .pem file (ex.pem)
+scp -i n.pem key.pem ec2-user@15.206.73.147:/home/ec2-user
+
+     (n.pem=jump srever , key.pem=private ec2)
+
+->after you can check in cd /home/ec2-user
+->ls
+->it shows ex.pem
