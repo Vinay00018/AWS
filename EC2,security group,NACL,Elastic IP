@@ -1,0 +1,34 @@
+1. (AWS EC2 User Data)
+-> User Data in AWS EC2 allows running scripts automatically when an instance first launches. This is typically used for:
+
+Installing software packages
+Configuring the server
+Running initialization scripts
+How it Works?
+User Data scripts run only once during the first boot It supports shell scripts (#!/bin/bash) and cloud-init scripts
+
+Example: (A script to install Apache on an EC2 instance)
+
+#!/bin/bash
+yum update -y
+yum install -y httpd
+systemctl start httpd
+systemctl enable httpd
+echo "hello world" > /var/www/html/index.html
+
+2. Security Groups (SG) in AWS
+-> Security Groups act as virtual firewalls for EC2 instances, controlling inbound and outbound traffic at the instance level.
+
+Key Features:
+Works at the instance level (attached to EC2) Supports allow rules only (no deny rules) By default, all inbound traffic is denied and all outbound traffic is allowed
+
+3. Network ACL (NACL [network address control list] ) in AWS
+-> Network ACLs (NACLs) are firewalls at the subnet level, controlling traffic in and out of subnets.
+
+Key Features:
+Works at the subnet level Supports both allow and deny rules Evaluates rules in order (starting from the lowest numbered rule)
+
+4.Elastic IP
+
+-> Keep a fixed IP address for your application( server(ec2)) even if the instance behind it fails or restarts.
+-> Remap quickly to another EC2 instance in the same region.
