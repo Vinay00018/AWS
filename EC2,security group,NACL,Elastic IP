@@ -24,6 +24,7 @@ Works at the instance level (attached to EC2) Supports allow rules only (no deny
 
 3. Network ACL (NACL [network address control list] ) in AWS
 -> Network ACLs (NACLs) are firewalls at the subnet level, controlling traffic in and out of subnets.
+-> initially inbound and outbound is denied for all traffic
 
 Key Features:
 Works at the subnet level Supports both allow and deny rules Evaluates rules in order (starting from the lowest numbered rule)
