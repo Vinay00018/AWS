@@ -1,0 +1,31 @@
+Vertical Scaling in AWS means increasing the power of a single instance (like adding more CPU, RAM, or storage).
+
+🧱 Example:
+You upgrade an EC2 instance from t3.small (2 vCPU, 2 GB RAM) to t3.large (2 vCPU, 8 GB RAM).
+You're not adding more instances — you're just making one instance stronger.
+
+✅ Advantages:
+Simple to implement.
+No changes to application logic.
+Good for monolithic apps.
+
+❌ Disadvantages:
+Downtime usually required to resize.
+There's a limit to how much you can scale up.
+Not suitable for high availability or fault tolerance.
+
+🛠️ How to Do Vertical Scaling in AWS:
+Stop the EC2 instance.
+
+Change instance type in the console.
+
+Start the instance.
+
+🆚 Horizontal Scaling vs Vertical Scaling:
+
+| Feature         | Vertical Scaling        | Horizontal Scaling            |
+| --------------- | ----------------------- | ----------------------------- |
+| Scaling method  | Upgrade instance size   | Add more instances            |
+| Downtime        | Usually required        | No downtime                   |
+| Cost efficiency | Less efficient at scale | More efficient at large scale |
+| Max limit       | Yes                     | Can scale almost infinitely   |
