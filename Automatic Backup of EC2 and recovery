@@ -1,0 +1,92 @@
+✅ Steps to Set Up Automatic EC2 Backup Using AWS Backup
+1️⃣ Open AWS Backup
+Go to AWS Console → Search and open AWS Backup.
+
+2️⃣ Create a Backup Vault (Optional)
+Navigate to Backup Vaults → Click Create Backup Vault.
+
+Name: MyEC2BackupVault
+
+(Optional) Add tags or encryption settings.
+
+Click Create backup vault.
+
+3️⃣ Create a Backup Plan
+Go to Backup plans → Click Create Backup Plan.
+
+Choose Build a new plan.
+
+4️⃣ Define Backup Rule
+Name: DailyEC2Backup
+
+Backup frequency: Choose from dropdown:
+
+Every 12 hours
+
+Daily
+
+Weekly
+
+Monthly
+
+Backup window: Choose preferred time range (default is OK).
+
+Lifecycle settings:
+
+Transition to cold storage: (Optional)
+
+Expire after: e.g., 7 days (delete old backups)
+
+5️⃣ Assign Backup Vault
+Choose the vault: MyEC2BackupVault
+
+6️⃣ Assign Resources
+After plan is created → Click Assign Resources
+
+Select EC2 resource type
+
+Assign using:
+
+Resource ID (Instance ID), or
+
+Tag-based selection (e.g., Key=Backup, Value=Daily)
+
+###############################################################################################################################################
+
+🔁 Steps to Recover EC2 from AWS Backup
+1️⃣ Open AWS Backup
+Go to AWS Console → Open AWS Backup.
+
+2️⃣ Go to Protected Resources
+Click on "Protected resources" from the left menu.
+
+Find your EC2 instance from the list.
+
+Click on the instance to see its backups.
+
+3️⃣ Select Recovery Point
+Click on a recovery point ID (latest or any previous).
+
+You'll see details of the backup (like timestamp, vault, etc.)
+
+4️⃣ Click "Restore"
+Click the Restore button on the top right.
+
+5️⃣ Restore Settings
+You can change:
+
+EC2 instance name
+
+Instance type
+
+Subnet and VPC
+
+IAM role
+
+Security groups
+
+6️⃣ Start Restore
+Click Restore backup.
+
+AWS will now launch a new EC2 instance from the backup.
+
