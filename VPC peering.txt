@@ -5,3 +5,20 @@ vpc peering (establishing connection btw vpc's)
 * if vpc in different region or in same region or different aws account we can use vpc peering 
 
 * vpc's must have different CIDR range otherwise it overlaps
+########################################################################
+
+🔧 Steps to Set Up VPC Peering:
+
+Create Peering Connection:
+->Go to VPC Console > Peering Connections > Create Peering Connection
+->Select Requester and Accepter VPCs
+
+Accept the Connection:
+-> In the Accepter VPC’s account, accept the request
+
+Update Route Tables:
+-> Add routes in both VPCs to allow traffic to the other VPC’s CIDR
+
+Update Security Groups (SGs):
+->Allow traffic from the other VPC's CIDR in the SGs
+
