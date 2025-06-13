@@ -99,8 +99,7 @@ After adding the entry to /etc/fstab, you can use the mount -a command to apply 
         mount -a
 
 ### Unmount
-for unmounting ypu can use
+for unmounting you can use
          umount <dev_name>
 
-# Architecture
-![My Image](/Images/EBS.jpg)
+
