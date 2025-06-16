@@ -1,4 +1,5 @@
 RDS (relational database service)
+
 1.create security group (inbound rules allow MySQL (3306)-> instance sg )
 2.create subnet group (it is better to put database in private subnets)
 3. create database 
