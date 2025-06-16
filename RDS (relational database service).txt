@@ -1,0 +1,35 @@
+RDS (relational database service)
+1.create security group (inbound rules allow MySQL (3306)-> instance sg )
+2.create subnet group (it is better to put database in private subnets)
+3. create database 
+  options-single az 
+  	 -multi az db instance (create database in multiple az's)
+   	 -multi az db cluster (create database in multiple az's (it is used in high read write operations))
+  engine type
+	-Aurora (PostgreSQL Compatible)
+	-MySQL
+	-more
+  give user name and password
+  create
+4.connect to database using instance 
+	- connect to instance 
+	- apt install mysql-client 
+	- MySQL -h <endpoint> -u <username> -p <password>
+	-perform read write operation by creating database
+5.running docker container in ec2 to add and remove contacts to database (UI application)
+	vim example.sh
+
+   	#!/bin/bash
+	apt install docker.io -y
+	systemctl start docker
+	systemctl enable docker
+	db_host=<endpoint>
+	db_user=<name>
+	db_pass=<paswor>
+	docker run --rm -p 80:3000 -e DB_HOST="$db_host" -e DB_USER="$db_user" -e DB_PASSWORD="$db_pass" -d kchithu/microdegree:aws 
+	
+	./example.sh
+
+	open browser and enter public IP
+	-you can see the interface to add and delete contacts 
+	-you can check in database also to know updated
