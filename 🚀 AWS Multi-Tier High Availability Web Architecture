@@ -1,0 +1,122 @@
+🚀 AWS Multi-Tier High Availability Web Architecture
+T VINAY , Jun 17, 2025
+
+1️⃣ Domain and DNS Setup
+
+Purchased a custom domain via GoDaddy
+
+Configured nameservers to point to AWS Route 53
+
+Created a hosted zone in Route 53
+
+2️⃣ CloudFront and Certificate
+
+Created a CloudFront distribution
+
+Issued a certificate via AWS Certificate Manager (ACM)
+
+Connected the certificate to CloudFront for secure HTTPS access
+
+Created an A Record in Route 53 to map the domain to CloudFront
+
+3️⃣ VPC and Architecture Setup
+
+Created a NAT Gateway in Public Subnet 1 for private instances to access the internet
+
+2 Public Subnets for NAT gateway and instances
+
+2 Private Subnets for autoscaling (NGINX proxy)
+
+2 Private Subnets for the second Load Balancer
+
+2 Private Subnets for backend application, RDS, and autoscaling
+
+4️⃣ NGINX Reverse Proxy Setup
+
+Launched EC2 instance in a public subnet
+
+Installed NGINX to forward traffic to app instances in private subnets
+
+Used as a reverse proxy for routing and load balancing
+
+bash
+Copy
+Edit
+sudo apt update -y
+sudo apt install nginx -y
+Replaced default config:
+
+nginx
+Copy
+Edit
+http {
+  upstream backend {
+    server <INTERNAL-LOAD-BALANCER-DNS>:80;
+  }
+
+  server {
+    listen 80;
+    server_name _;
+
+    location / {
+      proxy_pass http://backend;
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+  }
+}
+5️⃣ First Load Balancer and Auto Scaling (Internet-facing)
+
+Created an Application Load Balancer (ALB) in Public Subnets 1 & 2
+
+ALB distributes traffic to app instances in Private Subnets 1 & 2
+
+Configured target groups & Auto Scaling policies
+
+NGINX runs as a reverse proxy on a separate EC2 instance
+
+Auto Scaling for NGINX EC2 instances in Private Subnets 1 & 2
+
+Reverse proxy forwards traffic to a second Load Balancer in Private Subnets 3 & 4
+
+6️⃣ Second Load Balancer and Auto Scaling (Internal)
+
+Handles requests securely within the application layer
+
+Auto Scaling in Private Subnets 5 & 6 for the app tier and RDS (Multi-AZ)
+
+Ensures high availability and performance
+
+7️⃣ Backend Application EC2 (Private Subnet)
+
+Deployed in a private subnet
+
+Pulled app image from DockerHub and ran as containerized Node.js app on port 3000
+
+Installed mysql-client for backend → RDS connection
+
+8️⃣ Database Setup with RDS
+
+Provisioned Amazon RDS with MySQL
+
+Master-Replica deployment across AZs
+
+Secured with security groups & subnet groups
+
+9️⃣ CloudFront to Load Balancer Connection
+
+Added HTTPS listener (port 443) on ALB
+
+Listener uses SSL cert from ACM
+
+Forwarding rules direct HTTPS traffic to target groups (NGINX/backend)
+
+🔟 Testing and Go Live
+
+Verified DNS, static & dynamic content
+
+Connected CloudFront & Route 53 with the domain
+
+Ensured end-to-end flow: CloudFront → ALB → NGINX → App → RDS
+
