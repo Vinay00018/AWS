@@ -1,0 +1,31 @@
+🚀 Host a Static Website on AWS S3 (Sharing My Old Project to Help Beginners)
+
+🗂️ 1️⃣ Created an S3 Bucket
+I created a bucket named big-bucket-6-28-25 in the Asia Pacific (Singapore) region.
+Note: Bucket names must be unique.
+
+📂 2️⃣ Uploaded Website Files
+I uploaded a basic index.html for the homepage and an error.html for error handling.
+✅ Tip: Use the correct file extensions so S3 can serve them properly.
+
+⚙️ 3️⃣ Enabled Static Website Hosting
+In the Properties tab, I enabled Static Website Hosting, set index.html as the Index document, and error.html as the Error document.
+
+🔓 4️⃣ Added Bucket Policy for Public Access
+I added this policy to allow public read access:
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::big-bucket-6-28-25/*"
+    }
+  ]
+}
+🌐 5️⃣ Tested the Website
+I accessed the S3 website endpoint and the site worked perfectly — including the custom error page!
+
