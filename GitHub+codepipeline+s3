@@ -1,0 +1,44 @@
+🚀 Deploy a Simple Static Website on AWS Using GitHub + CodePipeline + S3
+
+I wanted to share how I set up an auto-updating static website using AWS S3 and CodePipeline, connected directly to GitHub. Super simple — push code, and the site updates!
+
+✅ 1️⃣ Create S3 Bucket
+
+Go to S3 Console
+Create a unique bucket
+Region: pick your region
+Uncheck Block all public access
+Enable Static website hosting
+Index document: index.html
+
+✅ 2️⃣ Make Bucket Public
+
+Add this bucket policy (replace with your bucket name):
+
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicRead",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME/*"
+    }
+  ]
+}
+✅ 3️⃣ Push Your Code
+
+Create a GitHub repo
+Add your index.html
+Commit & push
+
+✅ 4️⃣ Create CodePipeline
+
+Source: GitHub repo
+Build: Skip (for static sites)
+Deploy: S3 bucket → enter exact bucket name
+
+✅ 5️⃣ Done!
+
+Push new changes → Pipeline runs → Files auto-upload → Website updates live!
