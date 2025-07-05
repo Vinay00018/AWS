@@ -1,0 +1,114 @@
+🌟 Introduction
+Welcome! In this post, I’ll guide you through how I built a scalable, secure, serverless ride-sharing web app using popular AWS services. From linking my code with GitHub and Amplify to deploying, securing users with Cognito, managing backend logic with Lambda, and storing data in DynamoDB — this project has it all!
+
+Architecture Overview
+Before diving into the implementation, let’s understand the architecture:
+
+The application consists of several key components:
+Frontend Hosting: AWS Amplify hosts our static web content
+User Management: Amazon Cognito handles user registration and authentication
+API Layer: Amazon API Gateway provides RESTful endpoints
+Business Logic: AWS Lambda functions process ride requests
+Data Storage: Amazon DynamoDB stores ride information
+Version Control: GitHub integration for continuous deployment
+
+🔗 Step 1: Connect GitHub & Deploy with Amplify
+
+I connected my GitHub repo to AWS Amplify. With every push, Amplify automatically builds and deploys the latest version.
+
+🚀 Step 2: Watch It Deploy!
+
+Amplify handles CI/CD like magic. Once I connected the repo, my app went live in minutes!
+
+🔐 Step 3: Secure Users with Cognito
+
+Security first! I integrated Amazon Cognito to let users sign up and sign in safely, with secure token management.
+update user pool Id and client Id on config.js
+After updating config.js file
+you can login using your mail ID
+
+🗂️ Step 4: Create the Database
+
+I created a DynamoDB table to store all ride-sharing data, such as user ride requests, ride statuses, and driver details.
+
+copy the database arn:
+
+🛡️ Step 5: Create IAM Role (with Inline Policy)
+
+I created an IAM role to allow my Lambda functions and API Gateway to securely access DynamoDB. To do this, I attached an inline policy with specific DynamoDB permissions. The inline policy uses the DynamoDB table ARN to restrict actions only to that table, following the principle of least privilege.
+
+For example, I allowed actions like dynamodb:PutItem
+
+⚙️ Step 6: Lambda Function & Backend Code
+I created a Lambda function, attached the IAM role, and added this backend logic:
+{
+“path”: “/ride”,
+“httpMethod”: “POST”,
+“headers”: {
+“Accept”: “*/*”,
+“Authorization”: “eyJraWQiOiJLTzRVMWZs”,
+“content-type”: “application/json; charset=UTF-8”
+},
+“queryStringParameters”: null,
+“pathParameters”: null,
+“requestContext”: {
+“authorizer”: {
+“claims”: {
+“cognito:username”: “the_username”
+}
+}
+},
+“body”: “{\”PickupLocation\”:{\”Latitude\”:47.6174755835663,\”Longitude\”:-122.28837066650185}}”
+}
+
+🌐 Example API Request
+Example POST request to /ride through API Gateway:
+
+{
+“path”: “/ride”,
+“httpMethod”: “POST”,
+“headers”: {
+“Accept”: “*/*”,
+“Authorization”: “eyJraWQiOiJLTzRVMWZs”,
+“content-type”: “application/json; charset=UTF-8”
+},
+“queryStringParameters”: null,
+“pathParameters”: null,
+“requestContext”: {
+“authorizer”: {
+“claims”: {
+“cognito:username”: “the_username”
+}
+}
+},
+“body”: “{\”PickupLocation\”:{\”Latitude\”:47.6174755835663,\”Longitude\”:-122.28837066650185}}”
+}
+
+🌐 Step 7: API Gateway with Authorizer
+
+I created an API Gateway REST API to expose my Lambda function. I added a Cognito Authorizer to secure the endpoints. The Authorizer validates the JWT token from Cognito before forwarding the request to Lambda.
+
+In my config.js file on the frontend, I updated the API endpoint and authorizer configuration like this:
+
+const config = {
+api: {
+invokeUrl: ‘https://your-api-id.execute-api.region.amazonaws.com/prod',
+},
+cognito: {
+userPoolId: ‘YOUR_USER_POOL_ID’,
+userPoolClientId: ‘YOUR_USER_POOL_CLIENT_ID’,
+region: ‘YOUR_REGION’,
+},
+};
+
+✅ Final Step: Fully Working Deployment
+After deploying everything, I tested the full workflow:
+
+User signs up and logs in.
+The frontend calls the secured API Gateway.
+The Lambda function runs and saves ride data to DynamoDB.
+The live app is accessible via the Amplify URL.
+
+all the users information is stored in DynamoDB table
+🏁 Final Thoughts
+This project shows how to build, test, and deploy a complete serverless app on AWS. It’s a great way to learn real-world cloud development!
